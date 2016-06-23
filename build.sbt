@@ -8,7 +8,7 @@ scalaVersion := "2.11.8"
 
 libraryDependencies ++= Seq(
   "eu.inn"          %% "binders-core"                 % "0.12.85",
-  "eu.inn"          %% "auth-service-model"           % "0.1.3",
+  "eu.inn"          %% "auth-service-model"           % "0.1.4",
   "eu.inn"          %% "hyperbus"                     % "0.1.76",
   "eu.inn"          %% "hyperbus-model"               % "0.1.76",
   "eu.inn"          %% "hyperbus-transport"           % "0.1.76",
