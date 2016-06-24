@@ -2,7 +2,7 @@ package eu.inn.authentication.modules
 
 import akka.actor.ActorSystem
 import com.typesafe.config.Config
-import eu.inn.authentication.AuthenticationService
+import eu.inn.authentication.BasicAuthenticationService
 import eu.inn.config.ConfigLoader
 import eu.inn.authentication.utils.HyperbusFactory
 import eu.inn.hyperbus.Hyperbus
@@ -16,5 +16,5 @@ class MainModule extends Module {
   bind [Hyperbus]               identifiedBy 'hyperbus             to inject [HyperbusFactory].hyperbus
   bind [ActorSystem]            identifiedBy 'actorSystem          to ActorSystem("facade", inject [Config])
   bind [ExecutionContext]       identifiedBy 'executionContext     to inject[ActorSystem].dispatcher
-  bind [AuthenticationService]  identifiedBy 'authService          to injected[AuthenticationService]
+  bind [BasicAuthenticationService]  identifiedBy 'authService          to injected[BasicAuthenticationService]
 }

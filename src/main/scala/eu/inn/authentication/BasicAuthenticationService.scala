@@ -10,7 +10,8 @@ import eu.inn.hyperbus.transport.api.uri.Uri
 import scala.collection.JavaConversions._
 import scala.concurrent.{ExecutionContext, Future}
 
-class AuthenticationService(hyperbus: Hyperbus, config: Config)(implicit executionContext: ExecutionContext) {
+class BasicAuthenticationService(hyperbus: Hyperbus, config: Config)
+                                (implicit executionContext: ExecutionContext) {
 
   val requestMatcher = RequestMatcher(Some(Uri("/auth")), Map(Header.METHOD → Specific(Method.GET)))
   hyperbus.onCommand(requestMatcher) { request: DynamicRequest ⇒
@@ -27,27 +28,23 @@ class AuthenticationService(hyperbus: Hyperbus, config: Config)(implicit executi
 
   def authenticate(authString: String): Option[AuthUser] = {
     var authUser: Option[AuthUser] = None
-    val schemeAndCredentials = authString.replace("Authorization: ", "")
-    if (isBasic(schemeAndCredentials)) {
-      val credentials = schemeAndCredentials.toLowerCase.replace("basic ", "").split(":")
-      val login = credentials(0)
-      val password = credentials(1)
-      getBasicAuthConfigs.foreach { authConfig ⇒
-        if (authConfig.hasPath(login)) {
-          val userConfig = authConfig.getConfig(login)
-          if (userConfig.getString("password") == password) {
-            val id = userConfig.getString("id")
-            val roles = userConfig.getStringList("roles").toSet
-            authUser = Some(AuthUser(id, roles, Null))
-          }
+    val credentials = authString.split(":")
+    if (credentials.length != 2) {
+      throw new IllegalArgumentException("Wrong credentials format. Should be 'user:password'")
+    }
+    val login = credentials(0)
+    val password = credentials(1)
+    getBasicAuthConfigs.foreach { authConfig ⇒
+      if (authConfig.hasPath(login)) {
+        val userConfig = authConfig.getConfig(login)
+        if (userConfig.getString("password") == password) {
+          val id = userConfig.getString("id")
+          val roles = userConfig.getStringList("roles").toSet
+          authUser = Some(AuthUser(id, roles, Null))
         }
       }
     }
     authUser
-  }
-
-  def isBasic(credentials: String): Boolean = {
-    credentials.toLowerCase.startsWith("basic")
   }
 
   def getBasicAuthConfigs: Set[Config] = config.getConfigList("auth-service.basic").toSet
