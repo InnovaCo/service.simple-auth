@@ -11,10 +11,10 @@ import scaldi.Module
 import scala.concurrent.ExecutionContext
 
 class MainModule extends Module {
-  bind [Config]                 identifiedBy 'config               toNonLazy ConfigLoader()
-  bind [HyperbusFactory]        identifiedBy 'hbFactory            to new HyperbusFactory(inject [Config])
-  bind [Hyperbus]               identifiedBy 'hyperbus             to inject [HyperbusFactory].hyperbus
-  bind [ActorSystem]            identifiedBy 'actorSystem          to ActorSystem("facade", inject [Config])
-  bind [ExecutionContext]       identifiedBy 'executionContext     to inject[ActorSystem].dispatcher
+  bind [Config]                      identifiedBy 'config               toNonLazy ConfigLoader()
+  bind [HyperbusFactory]             identifiedBy 'hbFactory            to new HyperbusFactory(inject [Config])
+  bind [Hyperbus]                    identifiedBy 'hyperbus             to inject [HyperbusFactory].hyperbus
+  bind [ActorSystem]                 identifiedBy 'actorSystem          to ActorSystem("simple-auth-service", inject [Config])
+  bind [ExecutionContext]            identifiedBy 'executionContext     to inject[ActorSystem].dispatcher
   bind [BasicAuthenticationService]  identifiedBy 'authService          to injected[BasicAuthenticationService]
 }
