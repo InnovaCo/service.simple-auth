@@ -17,6 +17,7 @@ libraryDependencies ++= Seq(
   "eu.inn"          %% "service-config"               % "0.1.6",
   "ch.qos.logback"  % "logback-classic"               % "1.1.2",
   "ch.qos.logback"  % "logback-core"                  % "1.1.2",
+  "io.spray"        %% "spray-can"                    % "1.3.3",
   "org.scaldi"      %% "scaldi"                       % "0.5.7"
 )
 

@@ -4,6 +4,7 @@ import com.typesafe.config.Config
 import eu.inn.binders.value.Null
 import eu.inn.hyperbus.Hyperbus
 import eu.inn.hyperbus.model._
+import spray.http.BasicHttpCredentials
 
 import scala.collection.JavaConversions._
 import scala.concurrent.{ExecutionContext, Future}
@@ -25,12 +26,9 @@ class BasicAuthenticationService(hyperbus: Hyperbus, config: Config)
 
   def authenticate(authString: String): Option[AuthUser] = {
     var authUser: Option[AuthUser] = None
-    val credentials = authString.split(":")
-    if (credentials.length != 2) {
-      throw new IllegalArgumentException("Wrong credentials format. Should be 'user:password'")
-    }
-    val login = credentials(0)
-    val password = credentials(1)
+    val credentials = BasicHttpCredentials(authString.substring(5))  // cut off prefix "Basic "
+    val login = credentials.username
+    val password = credentials.password
     getBasicAuthConfigs.foreach { authConfig ⇒
       if (authConfig.hasPath(login)) {
         val userConfig = authConfig.getConfig(login)
