@@ -1,6 +1,6 @@
-package eu.inn.authentication
+package eu.inn.auth
 
-import eu.inn.authentication.modules.MainModule
+import eu.inn.auth.modules.MainModule
 import eu.inn.hyperbus.Hyperbus
 import scaldi.Injectable
 

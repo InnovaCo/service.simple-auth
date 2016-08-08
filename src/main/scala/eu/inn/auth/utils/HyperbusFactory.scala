@@ -1,4 +1,4 @@
-package eu.inn.authentication.utils
+package eu.inn.auth.utils
 
 import java.util.concurrent.{Executor, SynchronousQueue, ThreadPoolExecutor, TimeUnit}
 

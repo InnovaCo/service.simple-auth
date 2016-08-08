@@ -1,6 +1,7 @@
-package eu.inn.authentication
+package eu.inn.auth
 
 import com.typesafe.config.Config
+import eu.inn.authentication.AuthUser
 import eu.inn.binders.value.Null
 import eu.inn.hyperbus.Hyperbus
 import eu.inn.hyperbus.model._

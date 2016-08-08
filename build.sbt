@@ -1,14 +1,39 @@
+import sbt.Keys._
+
 organization := "eu.inn"
 
 name := "simple-auth-service"
 
-version := "0.1"
+projectMajorVersion := "0.1"
+
+projectBuildNumber := "SNAPSHOT"
+
+version := projectMajorVersion.value + "." + projectBuildNumber.value
 
 scalaVersion := "2.11.8"
 
+crossScalaVersions := Seq("2.11.8")
+
+scalacOptions ++= Seq(
+  "-language:postfixOps",
+  "-feature",
+  "-deprecation",
+  "-unchecked",
+  "-target:jvm-1.8",
+  "-encoding", "UTF-8"
+)
+
+javacOptions ++= Seq(
+  "-source", "1.8",
+  "-target", "1.8",
+  "-encoding", "UTF-8",
+  "-Xlint:unchecked",
+  "-Xlint:deprecation"
+)
+
 libraryDependencies ++= Seq(
   "eu.inn"          %% "binders-core"                 % "0.12.85",
-  "eu.inn"          %% "auth-service-model"           % "0.1.4",
+  "eu.inn"          %% "auth-service-model"           % "0.1.6",
   "eu.inn"          %% "hyperbus"                     % "0.1.76",
   "eu.inn"          %% "hyperbus-model"               % "0.1.76",
   "eu.inn"          %% "hyperbus-transport"           % "0.1.76",
@@ -27,6 +52,14 @@ resolvers ++= Seq(
   Resolver.sonatypeRepo("public")
 )
 
-publishTo := Some("Innova libs repo" at "http://repproxy.srv.inn.ru/artifactory/libs-release-local")
+lazy val root = (project in file(".")). enablePlugins(BuildInfoPlugin)
 
-credentials += Credentials(Path.userHome / ".ivy2" / ".innova_credentials")
+val projectMajorVersion = settingKey[String]("Defines the major version number")
+
+val projectBuildNumber = settingKey[String]("Defines the build number")
+
+buildInfoPackage := "eu.inn.facade"
+
+buildInfoKeys := Seq[BuildInfoKey](name, version, scalaVersion, sbtVersion)
+
+addCompilerPlugin("org.scalamacros" % "paradise" % "2.1.0" cross CrossVersion.full)

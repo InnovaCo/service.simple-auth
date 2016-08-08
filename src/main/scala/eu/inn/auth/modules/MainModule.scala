@@ -1,10 +1,10 @@
-package eu.inn.authentication.modules
+package eu.inn.auth.modules
 
 import akka.actor.ActorSystem
 import com.typesafe.config.Config
-import eu.inn.authentication.BasicAuthenticationService
+import eu.inn.auth.BasicAuthenticationService
+import eu.inn.auth.utils.HyperbusFactory
 import eu.inn.config.ConfigLoader
-import eu.inn.authentication.utils.HyperbusFactory
 import eu.inn.hyperbus.Hyperbus
 import scaldi.Module
 
