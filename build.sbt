@@ -33,12 +33,12 @@ javacOptions ++= Seq(
 
 libraryDependencies ++= Seq(
   "eu.inn"          %% "binders-core"                 % "0.12.85",
-  "eu.inn"          %% "auth-service-model"           % "0.1.6",
-  "eu.inn"          %% "hyperbus"                     % "0.1.76",
-  "eu.inn"          %% "hyperbus-model"               % "0.1.76",
-  "eu.inn"          %% "hyperbus-transport"           % "0.1.76",
-  "eu.inn"          %% "hyperbus-t-distributed-akka"  % "0.1.76",
-  "eu.inn"          %% "hyperbus-t-kafka"             % "0.1.76",
+  "eu.inn"          %% "auth-service-model"           % "0.1.7",
+  "eu.inn"          %% "hyperbus"                     % "0.1.83",
+  "eu.inn"          %% "hyperbus-model"               % "0.1.83",
+  "eu.inn"          %% "hyperbus-transport"           % "0.1.83",
+  "eu.inn"          %% "hyperbus-t-distributed-akka"  % "0.1.83",
+  "eu.inn"          %% "hyperbus-t-kafka"             % "0.1.83",
   "eu.inn"          %% "service-config"               % "0.1.6",
   "ch.qos.logback"  % "logback-classic"               % "1.1.2",
   "ch.qos.logback"  % "logback-core"                  % "1.1.2",
